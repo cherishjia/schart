@@ -1,0 +1,1921 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>schart</title>
+    <meta content="telephone=no,email=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/snap.svg.js"></script>
+    <script type="text/javascript" src="./js/schart2.js"></script>
+    <style>
+        body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,button,input,textarea,th,td,p,span,font,div{padding:0;margin:0;word-wrap:break-word;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent;}
+        a{text-decoration:none;color: inherit;}
+        img{border: 0;vertical-align: middle;color: #bada55}
+
+        html{font-size: 10px;}
+        body {font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;-webkit-text-size-adjust:none;color: #1b1b1b;-webkit-user-select:none;}
+
+
+        .console {position: fixed;top:0;height: 50px;overflow: scroll;width: 100%;}
+    </style>
+</head>
+<body>
+<div class="console"></div>
+
+
+
+
+
+
+<svg id="svgcolum" height="250px" width="100%" ></svg>
+
+<svg id="svgbar" height="250px" width="100%" ></svg>
+
+
+<svg id="svgline" height="250px" width="100%" ></svg>
+
+<svg id="svgpie" height="300px" width="100%" ></svg>
+
+
+
+
+
+<pre>
+el:"#svgcolum",
+tip:[
+    {
+        format:function(data){
+            return '本月'+data.name+'销量为'+data.items[0].num;
+        },
+        color:'#000000',
+        bg:'#000000'
+    }
+],
+avg:[
+    {
+        num:10,
+        format:function(){},
+        color:'',
+        bg:'',
+    }
+],
+style:{
+    valuePartition:5,           //bglin 区分几块    默认6
+    categoryWidth:55,            //一个组  有多宽  默认自动
+    nameColor:'#000000',     //名字的颜色    默认  黑色
+    nameWeight:100,     //纵图   名字的宽度限制   默认 80
+    nameHeight:40,      //横图    名字的宽度限制   默认 40
+    nameSize:12,      //名字的字体大小  默认12
+    dataOffset:10,     //同一组元素  他们的距离偏差   默认0
+    xAxis:'category',           //默认  category  category类目    time时间   value值
+    yAxis:'value',          //默认  value
+    tipHeight:30,               //tip 的高度
+    moveChart:true,          //能否滚动
+    items:[{
+        width:5,            //默认  line宽度3  bar 宽度 10
+        type:'line',            //默认  line宽度3  bar 宽度 10
+        color:''                //默认  蓝色
+        lineEnd:{               //line 图的 特殊样式
+            format:function(){},
+            color:''
+            bg:''
+        },
+        marker:{
+            format:function(){}
+        }
+    }]
+
+},
+data:[
+    {
+        name:"abcdefghijkl",
+        items:[
+            {
+                num:20
+            },
+            {
+                num:33
+            }
+        ]
+    }
+],
+onFinish:function(){
+},
+onBegin:function(){
+},
+onTouch:function(){    //点击数据
+},
+onTouchStart:function(){   //长按数据
+},
+onTouchEnd:function(){}
+
+
+
+
+</pre>
+
+
+</body>
+
+<script type="text/javascript">
+//    $('body').on('touchmove',function (e){
+//        e.stopPropagation();
+//    });
+//    $('body').on('touchstart',function (e){
+//        e.stopPropagation();
+//    });
+
+    document.oncontextmenu = function ()
+    {
+        return false
+    };
+
+
+    var option1={
+        el:"#svgcolum",
+        tip:[
+            {
+                format:function(data){
+                    return data.name;
+                } //1tip多个
+            },{
+                format:function(data){
+                    return '123';
+                } //1tip多个
+            }
+        ],
+        style:{
+//            type:['bar','bar'],  //line bar pie
+            moveChart:true,          //能否滚动
+            dataOffset:0,
+            items:[
+                {
+                    type:'bar',
+                    lineEnd:{
+                        format:function(data){
+                            return data.items[0].num;
+                        },
+                        color:''
+                    }
+                }
+                ,
+                {
+                    type:'bar',
+                    color:'#88bf57',
+                    marker:{
+                        format:function(data){
+                            return data.items[1].num;
+                        }
+                    }
+                }
+//                ,
+//                {
+//                    color:'#f5a25c',
+//                    type:'line'
+//                }
+
+            ],
+            xAxis:'value',
+            yAxis:'category'//category  //group  //time   //value
+
+
+//            xAxis:'value',
+//            yAxis:'category'//category  //group  //time   //value
+        },
+        data:[
+            {
+                name:"abcdefghasjkl",
+                items:[
+                    {
+                        num:20
+                    },
+                    {
+                        num:33
+                    }
+                ]
+            },
+
+            {
+                name:"a",
+                items:[
+                    {
+                        num:34
+                    },
+                    {
+                        num:41
+                    }
+                ]
+            },
+            {
+                name:"朝阳2",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+            {
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"sefsef",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"asdfgasdgfasdg",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"速度朝阳5",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"速度速度朝阳6",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"速度速度朝阳7",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"速度速度朝阳8",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+            {
+                name:"速度速度朝阳9",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"速度朝阳10",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+
+            {
+                name:"速度速度朝阳11",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"速度朝阳12",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+
+            {
+                name:"速度速度速度朝阳14",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"速度速度朝阳15",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+
+            {
+                name:"速度朝阳16",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"速度朝阳17",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+
+
+
+            {
+                name:"朝阳速度18",
+                items:[
+                    {
+                        num:63
+                    },
+                    {
+                        num:50
+                    }
+                ]
+            }
+
+
+
+
+
+
+
+
+
+
+            ,{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },{
+                name:"速度速度速度速度朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            }
+
+        ],
+        onFinish:function(){
+        },
+        onBegin:function(){
+        },
+        onTouch:function(data){
+            console.log(data);
+        },
+        onTouchEnd:function(){}
+    };
+    var option2={
+        el:"#svgbar",
+        tip:[
+            {
+                format:function(data){
+                    return data.name;
+                } //1tip多个
+            },{
+                format:function(data){
+                    return '123';
+                } //1tip多个
+            }
+        ],
+//        avg:[
+//            {
+//                num:10,
+//                format:function(data){
+//                    return '平均:'+data.num;
+//                }
+//            }
+//        ],
+        style:{
+//            type:['bar','bar'],  //line bar pie
+//            moveChart:true,          //能否滚动
+            dataOffset:0,
+            items:[
+                {
+                    type:'bar',
+                    lineEnd:{
+                        format:function(data){
+                            return data.items[0].num;
+                        },
+                        color:''
+                    }
+                }
+                ,
+                {
+                    type:'bar',
+                    color:'#88bf57',
+                    marker:{
+                        format:function(data){
+                            console.log(data.items);
+                        }
+                    }
+                }
+//                ,
+//                {
+//                    color:'#f5a25c',
+//                    type:'line'
+//                }
+
+            ],
+            xAxis:'category',
+            yAxis:'value'//category  //group  //time   //value
+
+
+//            xAxis:'value',
+//            yAxis:'category'//category  //group  //time   //value
+        },
+        data:[
+            {
+                name:"abcdefghasjkl",
+                items:[
+                    {
+                        num:20
+                    },
+                    {
+                        num:33
+                    }
+                ]
+            },
+
+            {
+                name:"朝阳1",
+                items:[
+                    {
+                        num:34
+                    },
+                    {
+                        num:41
+                    }
+                ]
+            },
+
+
+
+
+            {
+                name:"朝阳16",
+                items:[
+                    {
+                        num:64
+                    }
+
+                ]
+            },
+            {
+                name:"朝阳17",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+
+                    }
+
+                ]
+            },
+
+
+
+            {
+                name:"朝阳18",
+                items:[
+                    {
+                        num:63
+                    },
+                    {
+                        num:50
+                    }
+                ]
+            }
+
+        ],
+        onFinish:function(){
+        },
+        onBegin:function(){
+        },
+        onTouch:function(data){
+            console.log(data);
+        },
+        onTouchEnd:function(){}
+    };
+    var option3={
+        el:"#svgline",
+        tip:[
+            {
+                format:function(data){
+                    return data.name;
+                } //1tip多个
+            },{
+                format:function(data){
+                    if(data.items[1]){
+                        return data.items[1].num;
+
+                    }
+                } //1tip多个
+            }
+        ],
+//        avg:[
+//            {
+//                num:10,
+//                format:function(data){
+//                    return '平均:'+data.num;
+//                }
+//            }
+//        ],
+        style:{
+//            type:['bar','bar'],  //line bar pie
+//            moveChart:true,          //能否滚动
+            dataOffset:0,
+            items:[
+                {
+                    type:'line',
+                    lineEnd:{
+                        format:function(data){
+                            return data.items[0].num;
+                        },
+                        color:''
+                    }
+                }
+                ,
+                {
+                    type:'line',
+                    color:'#f5a25c',
+                    marker:{
+                        format:function(data){
+                            console.log(data.items);
+//                            return data.items[1].num;
+                        }
+                    }
+                }
+//                ,
+//                {
+//                    color:'#f5a25c',
+//                    type:'line'
+//                }
+
+            ],
+//            xAxis:'time',
+            xAxis:'category',
+            yAxis:'value'//category  //group  //time   //value
+
+
+//            xAxis:'value',
+//            yAxis:'category'//category  //group  //time   //value
+        },
+        data:[
+            {
+                name:"朝阳1",
+                items:[
+                    {
+                        num:34
+                    },
+                    {
+                        num:41
+                    }
+                ]
+            },
+            {
+                name:"朝阳2",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+            {
+                name:"朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"朝阳3",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"朝阳4",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"朝阳5",
+                items:[
+                    {
+                        num:64
+                    }
+
+                ]
+            },
+            {
+                name:"朝阳6",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"朝阳7",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"朝阳8",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+            {
+                name:"朝阳9",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"朝阳10",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+
+            {
+                name:"朝阳11",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"朝阳12",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+
+            {
+                name:"朝阳14",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"朝阳15",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+
+            {
+                name:"朝阳16",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"朝阳17",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+
+
+
+
+
+        ],
+        onFinish:function(){
+        },
+        onBegin:function(){
+        },
+        onTouch:function(data){
+            console.log(data);
+        },
+        onTouchEnd:function(){},
+        onTouchStart:function(){}
+    };
+
+
+    var option4={
+        el:"#svgpie",
+        tip:[
+            {
+                format:function(data){
+                    return data.name;
+                } //1tip多个
+            },{
+                format:function(data){
+                    return '123';
+                } //1tip多个
+            }
+        ],
+//        avg:[
+//            {
+//                num:10,
+//                format:function(data){
+//                    return '平均:'+data.num;
+//                }
+//            }
+//        ],
+        style:{
+//            type:['bar','bar'],  //line bar pie
+//            moveChart:true,          //能否滚动
+            dataOffset:0,
+            items:[
+                {
+                    type:'pie',
+                    lineEnd:{
+                        format:function(data){
+                            return data.items[0].num;
+                        },
+                        color:''
+                    }
+                }
+
+//                ,
+//                {
+//                    color:'#f5a25c',
+//                    type:'line'
+//                }
+
+            ],
+
+
+//            xAxis:'value',
+//            yAxis:'category'//category  //group  //time   //value
+        },
+        data:[
+
+            {
+                name:"朝阳11",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+            {
+                name:"朝阳12",
+                items:[
+                    {
+                        num:60
+                    },
+                    {
+                        num:59
+                    }
+                ]
+            },
+
+            {
+                name:"朝阳14",
+                items:[
+                    {
+                        num:64
+                    },
+                    {
+                        num:51
+                    }
+                ]
+            },
+
+
+        ],
+        onFinish:function(){
+        },
+        onBegin:function(){
+        },
+        onTouch:function(data){
+            console.log(data);
+        },
+        onTouchEnd:function(){}
+    };
+
+
+
+    var  ccc=sChartDraw(option1);
+    sChartDraw(option2);
+    sChartDraw(option3);
+    sChartDraw(option4);
+
+
+
+
+</script>
+
+</html>
